@@ -1,0 +1,106 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas with Eraser</title>
+</head>
+<body>
+    <h2>Canvas Drawing with Eraser</h2>
+    <canvas id="drawingCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+    <br>
+    <button id="clearCanvas">Clear Canvas</button>
+    <button id="saveDrawing">Save</button>
+    <button id="eraserToggle">Eraser</button>
+    <br><br>
+    <label for="toolSize">Tool Size: </label>
+    <input type="range" id="toolSize" min="1" max="50" value="5">
+    <span id="toolSizeValue">5</span> px
+
+    <script>
+        // Set up canvas and context
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const toolSizeInput = document.getElementById('toolSize');
+        const toolSizeDisplay = document.getElementById('toolSizeValue');
+        const eraserToggle = document.getElementById('eraserToggle');
+
+        let isDrawing = false;
+        let isEraser = false;
+        let toolSize = parseInt(toolSizeInput.value);
+
+        // Initialize canvas with a white background
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Update tool size display
+        toolSizeInput.addEventListener('input', () => {
+            toolSize = parseInt(toolSizeInput.value);
+            toolSizeDisplay.textContent = toolSize;
+        });
+
+        // Mouse events for drawing and erasing
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+
+            if (isEraser) {
+                // Eraser logic: Draw a white circle
+                ctx.beginPath();
+                ctx.arc(e.offsetX, e.offsetY, toolSize / 2, 0, Math.PI * 2);
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fill();
+            } else {
+                // Draw logic: Regular drawing
+                ctx.lineWidth = toolSize;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = "#000000";
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+            ctx.closePath();
+        });
+
+        // Clear canvas button
+        document.getElementById('clearCanvas').addEventListener('click', () => {
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Toggle eraser/draw mode
+        eraserToggle.addEventListener('click', () => {
+            isEraser = !isEraser;
+            eraserToggle.textContent = isEraser ? "Draw" : "Eraser";
+        });
+
+        // Save Drawing to Server
+        document.getElementById('saveDrawing').addEventListener('click', function() {
+            var dataUrl = canvas.toDataURL('image/png');  // Capture canvas as PNG
+            var label = prompt("Enter the character label:");
+
+            var formData = new FormData();
+            formData.append('drawing', dataUrl);  // Send Base64 string
+            formData.append('label', label);
+
+            fetch('/canvas/save/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => alert('Drawing saved!'))
+            .catch(error => console.error('Error:', error));
+        });
+
+    </script>
+</body>
+</html>
+        
