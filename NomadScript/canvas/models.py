@@ -15,3 +15,10 @@ class Drawing(models.Model):
 
     def __str__(self):
         return self.label
+    
+class Reference(models.Model):
+    label = models.CharField(max_length=50, unique=True)
+    image = models.ImageField(upload_to='Letters/') 
+
+    def __str__(self):
+        return self.label

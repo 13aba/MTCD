@@ -3,38 +3,62 @@ from django.shortcuts import render
 # Create your views here.
 import base64
 from django.http import JsonResponse
-from .models import Drawing
+from .models import *
 from django.core.files.base import ContentFile
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def save_drawing(request):
+    """Save the user's drawing and provide the next reference image."""
     if request.method == 'POST':
-        data_url = request.POST.get('drawing')  # Base64 data
+        drawing_data = request.POST.get('drawing')
         label = request.POST.get('label')
 
-        if not data_url or not label:
-            return JsonResponse({'status': 'error', 'message': 'Missing drawing or label'})
+        if not drawing_data or not label:
+            return JsonResponse({'error': 'Missing data'}, status=400)
 
-        # Decode the Base64 image data
-        format, imgstr = data_url.split(';base64,')  # Split off the header part of the data URL
-        ext = format.split('/')[-1]  # Extract the image file extension (e.g., 'png')
-        
-        # Generate the filename using the label and extension
-        file_name = f"{label}.{ext}"
-        
-        # Decode the Base64 string into binary data
-        image_data = ContentFile(base64.b64decode(imgstr), name=file_name)
-        
-        # Save the image to the model
-        drawing = Drawing(label=label, image=image_data)
+        # Decode and save the drawing
+        format, imgstr = drawing_data.split(';base64,')
+        ext = format.split('/')[-1]
+        drawing_file = ContentFile(base64.b64decode(imgstr), name=f"{label}.{ext}")
+        drawing = Drawing(label=label, image=drawing_file)
         drawing.save()
 
-        print(f"Image saved to: {drawing.image.path}")  # Debugging: print the saved image path
+        # Get the next reference image sequentially
+        next_reference = get_next_reference(current_label=label)
 
-        return JsonResponse({'status': 'success', 'file_path': drawing.image.url})
-
-    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+        if next_reference:
+            return JsonResponse({
+                'message': 'Drawing saved!',
+                'next_reference': {
+                    'label': next_reference.label,
+                    'image': next_reference.image.url
+                }
+            })
+        else:
+            return JsonResponse({
+                'message': 'No more reference. Thank you for contributing!',
+                'next_reference': None  # Indicate no more references
+            })
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def draw_page(request):
-    return render(request, 'test.html')
+    reference = get_next_reference()
+    context = {
+        'reference': reference
+    }
+    return render(request, 'test.html', context)
+
+def get_next_reference(current_label=None):
+    """Get the next reference in sequence."""
+    if current_label:
+        # Find the next reference based on label order
+        current_ref = Reference.objects.filter(label=current_label).first()
+        if current_ref:
+            next_ref = Reference.objects.filter(id__gt=current_ref.id).order_by('id').first()
+            if next_ref:
+                return next_ref
+            else:
+                return None
+    # If no current_label or no next reference, return the first in sequence
+    return Reference.objects.order_by('id').first()
