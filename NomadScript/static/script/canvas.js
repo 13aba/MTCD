@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const referenceImage = document.getElementById('referenceImage');
     const clearButton = document.getElementById('clearCanvas');
     const toggleEraserButton = document.getElementById('eraserToggle');
+    const labelElement = document.getElementById('letterLabel');
     const brushSizeSlider = document.getElementById('toolSize');
 
     let isDrawing = false;
@@ -78,10 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Update reference image and label
                     referenceImage.src = data.next_reference.image;
                     referenceLabel = data.next_reference.label;
+                    console.log(referenceLabel);
+                    labelElement.textContent = 'Letter to Draw: ' + referenceLabel;
                 } else {
                     // End of sequence
                     referenceImage.style.display = 'none';
                     referenceLabel = '';
+                    labelElement.textContent = 'No more letters to draw. Thank you!';
                 }
             }
         })
