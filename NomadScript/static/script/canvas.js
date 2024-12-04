@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let isEraser = false;
     let brushSize = brushSizeSlider.value;
 
+    // Set up canvas drawing area and clear it
     ctx.fillStyle = "#FFFFFF"; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Set up canvas drawing
+    //Draw logic
     canvas.addEventListener('mousedown', (e) => {
         isDrawing = true;
         ctx.beginPath();
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.closePath();
     });
 
-    // Clear canvas
+    // Clear canvas by drawing white rectangle
     clearButton.addEventListener('click', () => {
         ctx.fillStyle = "#FFFFFF"; 
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Toggle eraser/draw mode
     toggleEraserButton.addEventListener('click', () => {
         isEraser = !isEraser;
+        //Change button depending on draw/eraser mode
         toggleEraserButton.textContent = isEraser ? 'Draw' : 'Eraser';
     });
 
@@ -59,13 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const dataUrl = canvas.toDataURL();
         const label = referenceLabel;
 
+        //Create new form data from user drawing
         const formData = new FormData();
         formData.append('drawing', dataUrl);
         formData.append('label', label);
 
+        //Clear the canvas for next drawing
         ctx.fillStyle = "#FFFFFF"; 
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        //Use POST API to send the data into middleware
         fetch('/canvas/save/', {
             method: 'POST',
             body: formData
@@ -74,13 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             if (data.message) {
                 alert(data.message);
-
+                //If middleaware sent back next reference draw it
                 if (data.next_reference) {
                     // Update reference image and label
                     referenceImage.src = data.next_reference.image;
                     referenceLabel = data.next_reference.label;
                     console.log(referenceLabel);
                     labelElement.textContent = 'Letter to Draw: ' + referenceLabel;
+                //If there is no reference picture, alert the user
                 } else {
                     // End of sequence
                     referenceImage.style.display = 'none';
