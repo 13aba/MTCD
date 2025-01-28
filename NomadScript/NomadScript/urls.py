@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 #Create url pattern for the websites
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('canvas/', include('canvas.urls')),
+    path('', include('canvas.urls')),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

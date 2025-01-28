@@ -1,0 +1,114 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head section contains the page's invisible information -->
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Informs device to set viewport to its own width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Summary of the web page as a news provider -->
+    <meta name="description" content="Learn Mongolian Tradtional Script." />
+    <!-- Author of the web page -->
+    <meta name="author" content="Bayarbat" />
+    <!-- Keywords relevant to web page content -->
+    <meta name="keywords" content="Mongolian, learn Mongolian, traditional script" />
+    <!-- Link third party library to provide different font families !-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inform user of current page within site structure: shown on web page's tab -->
+    <title>Nomad Script</title>
+</head>
+
+
+<body>
+    <header>
+        <!-- Section that contains links to other pages -->
+        <section class="nav-bar box-shadow">
+            <!-- Defualt logo when first loading into the page -->
+            <div class="company-logo-default">
+                <i class="fa-solid fa-chess"></i>
+                <h1>Chess Club</h1>
+            </div>
+            <!-- Smaller left aligned logo when scrolling -->
+            <div class="company-logo-scroll">
+                <i class="fa-solid fa-chess"></i>   
+            </div>
+            <!-- Main Navigation Links -->
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="learn.html">Learn Mongolian</a></li>
+                    <li><a href="contribute.html">Contribute</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+            <!-- Scroll to top button -->
+            <nav class="scroll-up-button">
+                <button>
+                    <i class="fa-solid fa-arrow-up fa-2x"></i>
+                </button>
+            </nav>
+            <!-- Accessibilty menu -->
+            <aside class="accessibility-menu">
+
+            </aside>
+            
+        </section>
+    </header>
+
+    <main>
+        {% block content %} 
+        {% endblock %} 
+    </main>
+
+    <footer>
+        <section class="footer">
+            <div class="footer-section">
+                <h4>MENU</h4>
+                <nav class="footer-links">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms and Condition</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h4>LANGUAGES</h4>
+                <nav class="footer-links">
+                    <ul>
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Français</a></li>
+                        <li><a href="#">Español</a></li>
+                        <li><a href="#">Монгол</a></li>
+                        <li><a href="#">中文</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h4>RESOURCES</h4>
+                <nav class="footer-links">
+                    <ul>
+                        <li><a href="#">Chess Tutorials</a></li>
+                        <li><a href="#">Opening Guides</a></li>
+                        <li><a href="#">Upcoming Tournaments</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h4>CONTACT US</h4>
+                <nav class="social-media-links">
+                    <ul>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </footer>
+    
+</body>

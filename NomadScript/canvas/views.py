@@ -49,6 +49,11 @@ def save_drawing(request):
     #Return error meassge if this function failed
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+
+#Function that renders canvas page
+def home_page(request):
+    return render(request, 'home.html')
+
 #Function that renders canvas page
 def draw_page(request):
     #Only used once when this page is requested to display the first reference image
