@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    --main-background: rgb(227, 229, 233);
+    --background-dark: black;
+    --background-white: whitesmoke; 
+    --nav-font-color: azure;
+    --hover-indicator: #ff6347; 
+    --main-header: 'Josefin Sans', 'Futura', sans-serif;
+    --main-text: 'Lora', 'Garamond', serif;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--main-background);
+}
+
+main {
+    min-width: 26.1875em;
+    height: 1000px;
+}
+
+h1, h2, h3 {
+    font-family: var(--main-header);
+}
+
+
+p {
+    font-weight: 200;
+    line-height: 2em;
+    font-family: var(--main-text);
+}
+
+
+/*-------------------------------------------*/
+/*Header CSS codes---------------------------*/
+/*-------------------------------------------*/
+
+.nav-bar{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: var(--main-background);
+    transition: 0.5s;
+    z-index: 99;
+    box-shadow: rgba(30, 50, 73, 0.25) 0px 10px 30px -20px, rgba(0, 0, 0, 0.23) 0px 10px 30px -30px;
+}
+
+.company-logo-default{
+    display: flex;
+    /*Align vertically and horizontally*/
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    text-align: center;
+    font-weight: 900;
+    line-height: 1.4;
+    padding: 0.5em 0.5em;
+    transition: 0.8s;
+    white-space: nowrap;
+}
+
+.company-logo-default img {
+    height: auto;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+}
+
+.company-logo-scroll {
+    /*Invisible by default, since the logo is only visible against the dark background of the fixed navigation
+    menu*/
+    display: none;
+    position: absolute;
+    top: .6em;
+    left: .6em;
+    font-size: 0.4em;
+    border: 3px solid var(--background-white);
+    padding: .2em;
+}
+
+/*Make the company logo visible when the fixed navigation menu is triggered by the user scrolling past a
+vertical scroll bar threshold*/
+.company-logo-scroll-active {
+    display: inline;
+    color: var(--background-white);
+}
+
+.company-logo-scroll-active img{
+    filter: invert(100%);
+}
+
+
+/* Remove defualt list style*/
+.nav-links ul {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin: auto;
+    padding: 0;
+    list-style-type: none;   
+}
+
+/* Remove underlines from text*/
+.nav-links li a{
+    display: block;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 1rem;
+    position: relative;
+    margin: 0.3em;
+    color: black;
+    transition: 0.8s;
+}
+
+/* Create bar on top of links when hovered*/
+.nav-links a::after{
+    content: "";
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    width: 0;
+    height: 0.2em;
+    background: var(--hover-indicator);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    /*Blue line that appears above navigation link is roughly the same width as the navigation link itself*/
+    width: 80%
+}
+
+/* Fixed Navigation Bar */
+.nav-bar.sticky {
+    padding: 0.5em 0.5em;
+    background-color: var(--background-dark)
+}
+
+.nav-bar.sticky .company-logo-default{
+    display: none;
+}
+
+.nav-bar.sticky a {
+    color: var(--nav-font-color);
+}
+
+.scroll-up-button button {
+    position: fixed;
+    display: none;
+    bottom: 2em;
+    right: 2em;
+    width: 3.5em;
+    height: 3.5em;
+    background-color:var(--background-white);
+}
+
+.scroll-up-button.visible button {
+    display: block;
+}
+
+/*-------------------------------------------*/
+/*Footer CSS codes---------------------------*/
+/*-------------------------------------------*/
+
+.footer {
+    width: 100%;
+    height: 300px;
+    padding: 4em 4em;
+    background-color: var(--background-dark);
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.footer-section h4 {
+    position: relative;
+    margin-bottom: 1.5em;
+    color: var(--nav-font-color);
+}
+
+.footer-section h4::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.2em;
+    width: 10%;
+    height: 0.2em;
+    background: var(--hover-indicator);
+    transition: width 0.3s ease;
+}
+
+.footer-section h4:hover::after{
+    width: 20%;
+}
+
+.footer-links ul {
+    justify-content: space-between;
+    margin: auto;
+    margin-left: 0.5em;
+    padding: 20;
+    list-style-type: none;   
+}
+
+.footer-links li {
+    padding: 0.5em 0; 
+    list-style: none;
+}
+
+.footer-links li a{
+    display: block;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: 0.8s;
+    transform-origin: left;
+    color: var(--nav-font-color);
+
+}
+
+.footer-links ul li a:hover {
+    transform: scale(1.2);
+}
+
+.social-media-links ul{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1em;
+}
+
+.social-media-links li {
+    display: inline-flex;
+    width: 3em;
+    height: 3em;
+    align-items: center;
+    justify-content: center;
+    padding: 1em; 
+    border: 2px solid #fff; 
+    background-color: #fff; 
+    border-radius: 50%; 
+}
+
+.social-media-links li a {
+    color: var(--background-dark)
+}

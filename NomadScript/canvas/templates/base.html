@@ -4,21 +4,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Head section contains the page's invisible information -->
 
 <head>
     <meta charset="UTF-8">
-    <!-- Informs device to set viewport to its own width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Summary of the web page as a news provider -->
     <meta name="description" content="Learn Mongolian Tradtional Script." />
-    <!-- Author of the web page -->
     <meta name="author" content="Bayarbat" />
-    <!-- Keywords relevant to web page content -->
     <meta name="keywords" content="Mongolian, learn Mongolian, traditional script" />
-    <!-- Link third party library to provide different font families !-->
+    <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Inform user of current page within site structure: shown on web page's tab -->
     <title>Nomad Script</title>
 </head>
 
@@ -29,12 +23,12 @@
         <section class="nav-bar box-shadow">
             <!-- Defualt logo when first loading into the page -->
             <div class="company-logo-default">
-                <i class="fa-solid fa-chess"></i>
-                <h1>Chess Club</h1>
+                <img src="/static/icon.svg" alt="Icon">
+                <h1>Nomad Script</h1>
             </div>
             <!-- Smaller left aligned logo when scrolling -->
             <div class="company-logo-scroll">
-                <i class="fa-solid fa-chess"></i>   
+                <img src="/static/icon.svg" alt="Icon">
             </div>
             <!-- Main Navigation Links -->
             <nav class="nav-links">
@@ -59,7 +53,7 @@
         </section>
     </header>
 
-    <main>
+    <main class="main-content">
         {% block content %} 
         {% endblock %} 
     </main>
@@ -92,9 +86,9 @@
                 <h4>RESOURCES</h4>
                 <nav class="footer-links">
                     <ul>
-                        <li><a href="#">Chess Tutorials</a></li>
-                        <li><a href="#">Opening Guides</a></li>
-                        <li><a href="#">Upcoming Tournaments</a></li>
+                        <li><a href="#">Mongolian History</a></li>
+                        <li><a href="#">Grammar Lessons</a></li>
+                        <li><a href="#">Learning Centers</a></li>
                     </ul>
                 </nav>
             </div>
@@ -110,5 +104,5 @@
             </div>
         </section>
     </footer>
-    
+    <script src="{% static 'script/main.js' %}"></script>    
 </body>
