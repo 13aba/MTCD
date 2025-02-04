@@ -168,6 +168,35 @@ vertical scroll bar threshold*/
 }
 
 /*-------------------------------------------*/
+/*General CSS codes---------------------------*/
+/*-------------------------------------------*/
+
+/*Main header for each page*/
+.page-header {
+    margin-top: 50px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.image-container {
+    overflow: hidden;
+    /*Text overlay will be positioned in relation to the background image*/
+    position: relative;
+}
+
+/*Smooth the zoom in effect animation*/
+.image-container img {
+    transition: all 0.4s ease-out;
+}
+
+/*Emphasize the given image by scaling up the image to mirror a "zoom in" effect*/
+.image-container img:hover {
+    transform: scale(1.02);
+}
+
+
+/*-------------------------------------------*/
 /*Footer CSS codes---------------------------*/
 /*-------------------------------------------*/
 

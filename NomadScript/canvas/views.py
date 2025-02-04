@@ -55,6 +55,18 @@ def home_page(request):
     return render(request, 'home.html')
 
 #Function that renders canvas page
+def learn_page(request):
+    return render(request, 'learn.html')
+
+#Function that renders canvas page
+def contribute_page(request):
+    return render(request, 'contribute.html')
+
+#Function that renders canvas page
+def about_page(request):
+    return render(request, 'about.html')
+
+#Function that renders canvas page
 def draw_page(request):
     #Only used once when this page is requested to display the first reference image
     reference = get_next_reference()
