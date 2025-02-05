@@ -41,3 +41,19 @@ window.addEventListener('scroll', () => {
             
         });
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll(".about-img");
+
+    function revealOnScroll() {
+        images.forEach((image) => {
+            const rect = image.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.8) {
+                image.classList.add("show");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll(); 
+});

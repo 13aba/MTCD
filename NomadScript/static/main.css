@@ -7,6 +7,7 @@
     --nav-font-color: azure;
     --hover-indicator: #ff6347; 
     --cta-button-color: rgb(73, 74, 87);
+    --teal-color: #008080;
     --main-header: 'Josefin Sans', 'Futura', sans-serif;
     --main-text: 'Lora', 'Garamond', serif;
 }
@@ -16,6 +17,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -30,13 +32,18 @@ h1, h2, h3, button{
     font-family: var(--main-header);
 }
 
+a.anchor {
+    display: block;
+    position: relative;
+    top: -70px;
+    visibility: hidden;
+}
 
 p {
     font-weight: 200;
     line-height: 2em;
     font-family: var(--main-text);
 }
-
 
 /*-------------------------------------------*/
 /*Header CSS codes---------------------------*/
@@ -164,7 +171,10 @@ vertical scroll bar threshold*/
 }
 
 .scroll-up-button.visible button {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 /*-------------------------------------------*/
@@ -222,24 +232,62 @@ canvas {
     background: white;
 }
 
+.decorative-line div {
+    margin: 0 0.8rem;
+    height: 0.23em;
+    width: 7em;
+    background: var(--background-dark);
+}
+
+.decorative-line {
+    margin: 20px 0;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.4rem;
+}
+
+.decorative-line div:nth-child(2) {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    background: var(--hover-indicator);
+}
+
+
 /*-------------------------------------------*/
 /*Contribute CSS codes---------------------------*/
 /*-------------------------------------------*/
+
 .contribute-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     align-items: center;
     gap: 10px;  
     margin: 0px 5%;
+    margin-bottom: 50px;
 }
 
 .cta {
     padding: 10px;
 }
 
+.cta p {
+    margin-bottom: 20px;
+}
+
 .cta-button {
+    align-self: start;
+    padding: 1em 1em;
+    border-radius: 0.2em;
+    background-color: var(--cta-button-color);
+    border: 0;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: var(--main-header);
     color: white;
-    margin-top: 20px;
 }
 
 .contribute-canvas {
@@ -298,6 +346,50 @@ canvas {
 #referenceImage{
     max-width: 100%;
     height: auto;
+}
+
+
+/*-------------------------------------------*/
+/*About CSS codes---------------------------*/
+/*-------------------------------------------*/
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    padding: 50px;
+    margin: 0 5%;
+}
+
+.about-grid h2{
+    margin-left: 30px;
+    padding-left: 10px;
+    color: var(--hover-indicator);
+    border-left: 0.25rem solid var(--teal-color);
+}
+
+.about-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-img img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateX(-100px); 
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.about-img:nth-child(even) img {
+    transform: translateX(100px); 
+}
+
+.about-img.show img {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 
