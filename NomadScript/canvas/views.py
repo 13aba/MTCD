@@ -60,20 +60,16 @@ def learn_page(request):
 
 #Function that renders canvas page
 def contribute_page(request):
-    return render(request, 'contribute.html')
-
-#Function that renders canvas page
-def about_page(request):
-    return render(request, 'about.html')
-
-#Function that renders canvas page
-def draw_page(request):
     #Only used once when this page is requested to display the first reference image
     reference = get_next_reference()
     context = {
         'reference': reference
     }
-    return render(request, 'test.html', context)
+    return render(request, 'contribute.html', context)
+
+#Function that renders canvas page
+def about_page(request):
+    return render(request, 'about.html')
 
 
 #Function that takes a label of the current reference and return next references data in the database

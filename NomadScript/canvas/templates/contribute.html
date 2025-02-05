@@ -4,19 +4,59 @@
     <h1>Contribute </h1>
 </div>
  
-<div>
-    <div class="article cta">
-        <h2>Help Preserve Mongolian Langauge!</h2>
-        <p>Your contributions help build a valuable dataset for learning and AI recognition.
-           By drawing these letters, you are keeping the tradition alive and making it easier for others to learn.
-           NomadScript exists only because of dedicated contributors like you, helping to preserve and share our 
-           unique writing system with the world.
-        </p>
-        <button class="cta-button">Start Contributing!</button>
+<div class="contribute-section">
+    <div class="cta">
+        <div class="article">
+            <h2>Help Preserve Mongolian Langauge!</h2>
+            <p>Your contributions help build a valuable dataset for learning and AI recognition.
+            By drawing these letters, you are keeping the tradition alive and making it easier for others to learn.
+            NomadScript exists only because of dedicated contributors like you, helping to preserve and share our 
+            unique writing system with the world.
+            </p>
+            <button class="cta-button">Start Contributing!</button>
+        </div>
     </div>
     <div class="image-container">
         <img src="/media/web/tradtional-script.jpg" alt="'Mongolian script' written in traditional Mongolian" >
     </div>
 </div>
+
+<div class="contribute-canvas">
+    <div class="canvas-header">
+        <h2>Start Drawing!</h2>
+        <p>
+            Carefully replicate the displayed letter using the canvas below. Your contribution helps 
+            train AI recognition models and preserves our script.
+        </p>
+    </div>
+    <!-- Letter Image Display -->
+    <div class="reference-container">
+        <h3 id="letterLabel">Letter to Draw: {{reference.label}} </h3>
+        <div id="referenceContainer">
+            <img 
+                id="referenceImage" 
+                src="{{ reference.image.url }}" 
+                alt="{{ reference.label }}" 
+            >
+        </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-container">
+        <canvas id="drawingCanvas"></canvas>
+        <div class="canvas-button">
+            <button id="clearCanvas">Clear Canvas</button>
+            <button id="eraserToggle">Eraser</button>
+            <button id="saveDrawing">Save</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var referenceLabel = "{{ reference.label }}";  
+</script>
+
+<script src="{% static 'script/canvas.js' %}"></script>
 
 {% endblock %}

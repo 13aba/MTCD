@@ -6,31 +6,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearButton = document.getElementById('clearCanvas');
     const toggleEraserButton = document.getElementById('eraserToggle');
     const labelElement = document.getElementById('letterLabel');
-    const brushSizeSlider = document.getElementById('toolSize');
 
     let isDrawing = false;
     let isEraser = false;
-    let brushSize = brushSizeSlider.value;
+
+    const scale = window.devicePixelRatio || 1; 
+    const width = canvas.offsetWidth;
+    const height = canvas.offsetHeight;
+
+    canvas.width = width * scale;
+    canvas.height = height * scale;
+    ctx.scale(scale, scale);
 
     // Set up canvas drawing area and clear it
     ctx.fillStyle = "#FFFFFF"; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+
+    function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+        return {
+            x: (e.clientX - rect.left) * (canvas.width / rect.width) / scale,
+            y: (e.clientY - rect.top) * (canvas.height / rect.height) / scale
+        };
+    }
+
     //Draw logic
     canvas.addEventListener('mousedown', (e) => {
         isDrawing = true;
+        const pos = getMousePos(e);
         ctx.beginPath();
-        ctx.moveTo(e.offsetX, e.offsetY);
+        ctx.moveTo(pos.x, pos.y);
     });
 
     canvas.addEventListener('mousemove', (e) => {
-        if (isDrawing) {
-            ctx.lineWidth = brushSize;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = isEraser ? '#FFFFFF' : '#000000';
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-        }
+        if (!isDrawing) return;
+        const pos = getMousePos(e);
+        ctx.lineWidth = isEraser ? 20 : 10;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = isEraser ? "#FFFFFF" : "#000000";
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
     });
 
     canvas.addEventListener('mouseup', () => {
@@ -51,10 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleEraserButton.textContent = isEraser ? 'Draw' : 'Eraser';
     });
 
-    // Update brush size
-    brushSizeSlider.addEventListener('input', (e) => {
-        brushSize = e.target.value;
-    });
 
     // Save drawing and load the next reference
     saveButton.addEventListener('click', () => {
@@ -71,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         //Use POST API to send the data into middleware
-        fetch('/canvas/save/', {
+        fetch('save/', {
             method: 'POST',
             body: formData
         })
