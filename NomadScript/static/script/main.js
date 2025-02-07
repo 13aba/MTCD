@@ -16,7 +16,8 @@ window.addEventListener('scroll', () => {
     // Retrieve the navigation menu from the DOM
     const companyLogo = document.querySelector('.company-logo-scroll');
 
-    
+    let scrollPercent = Math.min((window.scrollY / window.innerHeight) * 100, 100);
+    document.documentElement.style.setProperty("--scroll-percent", `${scrollPercent}%`);
 
     // Make navigation menu fixed to the top of the screen when a certain vertical scroll threshold is reached
     navBar.classList.toggle('sticky', window.scrollY > navBar.offsetTop);

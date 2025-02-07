@@ -1,4 +1,78 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}  {% load static %}
 {% block content %} 
   
+<section class="learning-intro">
+    <div class="left-info">
+        <h2>Learn Traditional Mongolian</h2>
+        <div>
+            <h3>Cyrillic alphabet</h3>
+            <p> 
+                Cyrllic was introduced in the 1940s in the Mongolian People's Republic under Soviet influence.
+                The Cyrillic script had many advantages over the traditional Mongolian including having clear certain 
+                letters such as "t" and "d," "o" and "u" which were frequently confused in traditional script, and simple & easy
+                shapes thats consistent regardless of position unlike the Mongolian script.
+            </p>
+        </div>
+        <div>
+            <h3>Why Learn the Traditional Mongolian Script?</h3>
+            <p> 
+                Although Cyrillic has been the dominant script since the 1940s, the traditional Mongolian script remains a vital 
+                part of Mongolia’s cultural identity. Its elegant vertical form connects modern Mongolians to 
+                their rich history, classical literature, and centuries-old traditions. With Mongolia's 2025 bilingual 
+                policy requiring both scripts in official documents, learning the traditional script is not just about
+                preserving heritage—it's about preparing for the future.
+            </p>
+        </div>
+        
+    </div>
+    <div class="right-image">
+        <img src="/media/web/modern.png" alt="'Mongolian Soyombo modern" >
+        <img src="/media/web/traditional.jpg" alt="'Mongolian Soyombo traditional" >
+    </div>
+</section>
+
+
+
+
+<section class="alphabet">
+    
+</section>
+
+<section class="tracing">
+    <h2>✍️ Practice Writing</h2>
+    <canvas id="tracingCanvas"></canvas>
+    <button onclick="clearCanvas()">Clear</button>
+</section>
+
+<script>
+    function playSound(letter) {
+        let audio = new Audio(`sounds/${letter}.mp3`);
+        audio.play();
+    }
+
+    const canvas = document.getElementById("tracingCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = 300;
+    canvas.height = 300;
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+
+    let drawing = false;
+    canvas.addEventListener("mousedown", () => drawing = true);
+    canvas.addEventListener("mouseup", () => drawing = false);
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+        if (!drawing) return;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+
 {% endblock %}
