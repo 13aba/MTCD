@@ -70,3 +70,13 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", revealOnScroll);
     revealOnScroll(); 
 });
+
+//Lesson page 
+const lessons = document.querySelectorAll(".dropdown");
+
+//for each lesson expand if clicked
+lessons.forEach(lesson => {
+    lesson.querySelector(".lesson-header").addEventListener("click", () => {
+        lesson.classList.toggle("active");
+    })
+})

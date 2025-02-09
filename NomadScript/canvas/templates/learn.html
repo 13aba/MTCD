@@ -43,42 +43,68 @@
 
 
 <section class="alphabet">
-    
-</section>
-
-<section class="tracing">
-    <h2>✍️ Practice Writing</h2>
-    <canvas id="tracingCanvas"></canvas>
-    <button onclick="clearCanvas()">Clear</button>
+    <section class="dropdown active">
+        <div class="lesson-header">
+            <h2>Mongolian Script alphabet</h2>
+            <i class="fa-solid fa-square-caret-down"></i>
+        </div>
+        <div class="lesson-para">
+            <p>
+                The Mongolian script is an alphabetic writing system traditionally written left to right in 
+                vertical columns, running from top to bottom. Unlike many other alphabets, each letter changes 
+                shape depending on its position within a word and the letters that follow it. Historically, it 
+                has been taught as syllables rather than individual letters, emphasizing its flowing and connected nature.
+                Mongolian script consists of consonants and vowels that combine to make a syllable. 
+                Plain consonants are: n, b, p, h, g, m, l, s, sh, t/d, ch/ts, j and r (or in Cyrillic н, б, п, х, г, м, л, с, ш, т, д, ч/ц, ж/з and р). 
+                Vowels are: a, e, i, o/ö and  u/ü (or in Cyrillic  а, э, и, о, у, ө, ү)
+            </p>
+        </div>
+      </section>
+      <section class="dropdown">
+          <div class="lesson-header">
+              <h2>Pronunciation of each letter</h2>
+              <i class="fa-solid fa-square-caret-down"></i>
+          </div>
+          <div class="lesson-para">
+            <div class="alphabet-grid">
+                <button class="letter-btn" onclick="playAudio('a')">A</button>
+                <button class="letter-btn" onclick="playAudio('b')">B</button>
+                <button class="letter-btn" onclick="playAudio('ch')">CH</button>
+                <button class="letter-btn" onclick="playAudio('e')">E</button>
+                <button class="letter-btn" onclick="playAudio('g')">G</button>
+                <button class="letter-btn" onclick="playAudio('h')">H</button>
+                <button class="letter-btn" onclick="playAudio('i')">I</button>
+                <button class="letter-btn" onclick="playAudio('j')">J</button>
+                <button class="letter-btn" onclick="playAudio('l')">L</button>
+                <button class="letter-btn" onclick="playAudio('m')">M</button>
+                <button class="letter-btn" onclick="playAudio('n')">N</button>
+                <button class="letter-btn" onclick="playAudio('o')">O</button>
+                <button class="letter-btn" onclick="playAudio('u')">U</button>
+                <button class="letter-btn" onclick="playAudio('p')">P</button>
+                <button class="letter-btn" onclick="playAudio('r')">R</button>
+                <button class="letter-btn" onclick="playAudio('s')">S</button>
+                <button class="letter-btn" onclick="playAudio('sh')">SH</button>
+                <button class="letter-btn" onclick="playAudio('t')">T</button>
+            </div>
+          </div>
+      </section>
+      <section class="dropdown">
+        <div class="lesson-header">
+            <h2>Daily lesson: letter A</h2>
+            <i class="fa-solid fa-square-caret-down"></i>
+        </div>
+        <div class="lesson-para">
+            <p>
+              
+            </p>
+        </div>
+      </section>
 </section>
 
 <script>
-    function playSound(letter) {
-        let audio = new Audio(`sounds/${letter}.mp3`);
+    function playAudio(letter) {
+        let audio = new Audio(`/media/audio/${letter}.wav`);
         audio.play();
-    }
-
-    const canvas = document.getElementById("tracingCanvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = 300;
-    canvas.height = 300;
-    ctx.lineWidth = 5;
-    ctx.lineCap = "round";
-
-    let drawing = false;
-    canvas.addEventListener("mousedown", () => drawing = true);
-    canvas.addEventListener("mouseup", () => drawing = false);
-    canvas.addEventListener("mousemove", draw);
-
-    function draw(e) {
-        if (!drawing) return;
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
-    }
-
-    function clearCanvas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 </script>
 

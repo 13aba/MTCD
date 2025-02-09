@@ -6,6 +6,7 @@
     --background-white: whitesmoke; 
     --nav-font-color: azure;
     --hover-indicator: #ff6347; 
+    --blue-button: #266E8F;
     --cta-button-color: rgb(73, 74, 87);
     --teal-color: #008080;
     --beige-color: #A28795;
@@ -398,6 +399,43 @@ canvas {
     opacity: 1;
 }
 
+
+.dropdown{
+    background-color: var(--background-white);
+    margin-top: 0.9rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    box-shadow: rgba(45, 47, 48, 0.2) 0px 8px 24px;
+}
+
+.dropdown .lesson-header{
+    background-color: var(--beige-color);
+    color: var(--background-dark);
+    box-shadow: rgba(45, 47, 48, 0.2) 0px 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1em;
+    padding: 1em;
+}
+
+.dropdown .lesson-para{
+    overflow: hidden;
+    max-height: 0px;
+    font-size: 1em;
+    transition: 1s;
+}
+
+.dropdown.active .lesson-para{
+    max-height: 500px;
+    padding: 1em;
+}
+
+.dropdown .lesson-para button{
+    background-color: var(--blue-button);
+    color: var(--hover-indicator);
+    font-size: 1em;
+}
 
 
 /*-------------------------------------------*/
