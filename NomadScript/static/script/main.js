@@ -41,6 +41,18 @@ window.addEventListener('scroll', () => {
             });
             
         });
+
+    //Scroll on learn page that changes between two "Soyombo"
+    document.addEventListener("scroll", function() {
+        let scrollPosition = window.scrollY;
+        let threshold = 200; // Adjust when transition should happen
+    
+        if (scrollPosition > threshold) {
+            document.querySelector(".right-image").classList.add("scrolled");
+        } else {
+            document.querySelector(".right-image").classList.remove("scrolled");
+        }
+    });
 })
 
 document.addEventListener("DOMContentLoaded", function () {
