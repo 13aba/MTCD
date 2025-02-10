@@ -94,18 +94,72 @@
             <i class="fa-solid fa-square-caret-down"></i>
         </div>
         <div class="lesson-para">
-            <p>
-              
-            </p>
+            <h2>Letter of the Day: ᠠ (A)</h2>
+            <p>Watch the video to see the correct stroke order and try writing it yourself.</p>
+
+            <div class="lesson-container">
+                <div class="letter-video">
+                    <video controls>
+                        <source src="/media/video/a-tut.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="drawing-area">
+                    <canvas id="drawingCanvas"></canvas>
+                    <div class="canvas-buttons">
+                        <button id="clearCanvas">Clear</button>
+                    </div>
+                </div>
+            </div>
         </div>
       </section>
 </section>
+
+<div class="decorative-line">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<section class="daily-lesson">
+    
+</section>
+
+
+
+
 
 <script>
     function playAudio(letter) {
         let audio = new Audio(`/media/audio/${letter}.wav`);
         audio.play();
     }
+
+    const canvas = document.getElementById("drawingCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = 300;
+    canvas.height = 300;
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", () => (drawing = true));
+    canvas.addEventListener("mouseup", () => (drawing = false));
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+        if (!drawing) return;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    }
+
+    document.getElementById("clearCanvas").addEventListener("click", () => {
+        ctx.fillStyle = "#FFFFFF"; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
 </script>
 
 
