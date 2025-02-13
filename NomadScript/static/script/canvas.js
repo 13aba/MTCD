@@ -97,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Update reference image and label
                     referenceImage.src = data.next_reference.image;
                     referenceLabel = data.next_reference.label;
-                    console.log(referenceLabel);
                     labelElement.textContent = 'Letter to Draw: ' + referenceLabel;
                 //If there is no reference picture, alert the user
                 } else {
