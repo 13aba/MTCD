@@ -55,6 +55,40 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.closePath();
     });
 
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+        return {
+            x: (e.clientX - rect.left) * (canvas.width / rect.width) / scale,
+            y: (e.clientY - rect.top) * (canvas.height / rect.height) / scale
+        };
+    }
+
+    // Add touch event listeners for mobile devices
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevents screen from scrolling
+        isDrawing = true;
+        const pos = getPos(e.touches[0]);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (!isDrawing) return;
+        const pos = getPos(e.touches[0]);
+        ctx.lineWidth = isEraser ? 20 : 10;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = isEraser ? "#FFFFFF" : "#000000";
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+    });
+
+    canvas.addEventListener('touchend', () => {
+        isDrawing = false;
+        ctx.closePath();
+    });
+
+
     // Clear canvas by drawing white rectangle
     clearButton.addEventListener('click', () => {
         ctx.fillStyle = "#FFFFFF"; 

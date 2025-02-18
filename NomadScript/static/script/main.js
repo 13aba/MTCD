@@ -41,21 +41,24 @@ window.addEventListener('scroll', () => {
             });
             
         });
-
-    //Scroll on learn page that changes between two "Soyombo"
-    document.addEventListener("scroll", function() {
-        let scrollPosition = window.scrollY;
-        let threshold = 200; // Adjust when transition should happen
-    
-        if (scrollPosition > threshold) {
-            document.querySelector(".right-image").classList.add("scrolled");
-        } else {
-            document.querySelector(".right-image").classList.remove("scrolled");
-        }
-    });
 })
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    const burger = document.querySelector(".burger-menu");
+    const mobileNav = document.querySelector(".mobile-nav");
+
+    burger.addEventListener("click", function () {
+        mobileNav.classList.toggle("active");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!burger.contains(event.target) && !mobileNav.contains(event.target)) {
+            mobileNav.classList.remove("active");
+        }
+    });
+    
     const images = document.querySelectorAll(".about-img");
 
     function revealOnScroll() {
@@ -80,3 +83,5 @@ lessons.forEach(lesson => {
         lesson.classList.toggle("active");
     })
 })
+
+
