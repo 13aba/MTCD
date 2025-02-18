@@ -11,21 +11,27 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-99gtrkv$nif(7o8#hkbt*j8qz83f)*az9dle6xvjvk%fjn_f$t"
+SECRET_KEY= "django-insecure-99gtrkv$nif(7o8#hkbt*j8qz83f)*az9dle6xvjvk%fjn_f$t"
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -78,13 +85,18 @@ WSGI_APPLICATION = "NomadScript.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Nomad',  
-        'USER': 'root',  
-        'PASSWORD': 'Baba9501', 
-        'HOST': 'localhost',  
-        'PORT': '3306',  
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
+}
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+LOGGING = {  
+    "version": 1,  
+    "disable_existing_loggers": False,  
+    "handlers": {"console": {"class": "logging.StreamHandler"}},  
+    "loggers": {"": {"handlers": ["console"], "level": "DEBUG"}},  
 }
 
 
@@ -136,3 +148,6 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = DEBUG
