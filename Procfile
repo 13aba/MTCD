@@ -1,1 +1,0 @@
-web gunicorn NomadScript.wcgi:application --log-file -
