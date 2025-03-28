@@ -7,4 +7,5 @@ urlpatterns = [
     path('contribute/', views.contribute_page, name='contribute_page'),
     path('about/', views.about_page, name='about_page'),
     path('contribute/save/', views.save_drawing, name='save_drawing'),
+    path('learn/predict/', views.predict_drawing, name='predict_drawing'),
 ]
