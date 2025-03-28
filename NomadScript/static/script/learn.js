@@ -66,28 +66,56 @@ canvas.addEventListener('mouseup', () => {
 
 
 document.getElementById("clearCanvas").addEventListener("click", () => {
-    ctx.fillStyle = "#FFFFFF"; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    clearCanvas();
 });
 
 document.getElementById("predictImage").addEventListener("click", () => {
     const dataUrl = canvas.toDataURL();
     const label = 'a';
-    //Create new form data from user drawing
+
+    // Create new form data from user drawing
     const formData = new FormData();
     formData.append('drawing', dataUrl);
     formData.append('label', label);
 
-    //Clear the canvas for next drawing
-    ctx.fillStyle = "#FFFFFF"; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    //Use POST API to send the data into middleware
+    // Use POST API to send the data into middleware
     fetch('predict/', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
+    .then(data => {
+        const predictedIndex = data.prediction_index;  
+        console.log(predictedIndex)
+        clearCanvas();
+        // Check if the prediction was correct at this beta stage we are only checking if its 0 since learning page has image of letter a
+        if (predictedIndex === 0) {
+            // Draw green checkmark icon
+            drawIcon("checkmark");
+        } else {
+            // Draw red X icon
+            drawIcon("x");
+        }
+
+        // Set a timeout to clear the canvas after 3 seconds
+        setTimeout(() => {
+            clearCanvas();
+        }, 1500); 
+    });
 });
+
+
+
+// Function to draw an icon (checkmark or X)
+function drawIcon(iconId) {
+    const icon = document.getElementById(iconId);
+    ctx.drawImage(icon, 0, 0, canvas.width*0.75, canvas.height*0.75);
+}
+
+// Function to clear the canvas
+function clearCanvas() {
+    ctx.fillStyle = "#FFFFFF"; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import os 
+import io
 # Create your views here.
 import base64
 import tensorflow as tf
@@ -68,15 +69,18 @@ def predict_drawing(request):
             return JsonResponse({'error': 'Missing data'}, status=400)
 
         # Decode and save the drawing
-        # Convert the string base64 data into image file using ContentFile
-        format, imgstr = drawing_data.split(';base64,')
-        ext = format.split('/')[-1]
-        drawing_file = ContentFile(base64.b64decode(imgstr), name=f"{label}.{ext}")
+        processed_image = preprocess_base64_image(drawing_data)
 
         #Predict the image
-        predictions = MODEL.predict(drawing_file)
-
-        print(predictions[0])
+        predictions = MODEL.predict(processed_image)
+        predicted_index = np.argmax(predictions[0]) 
+        predicted_index = int(predicted_index)
+        print(predicted_index)
+        #Return most likely letters index
+        return JsonResponse({'prediction_index': predicted_index })
+    
+    #Return error meassge if this function failed
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 #Function that renders canvas page
