@@ -25,8 +25,6 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-## Contributing
-
 ##  Contributing
 
 This dataset is pooled from **volunteer writers** who submitted samples of handwritten Mongolian traditional script.
